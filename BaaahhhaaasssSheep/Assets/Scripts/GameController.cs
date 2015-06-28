@@ -23,13 +23,15 @@ public class GameController : MonoBehaviour {
 
 	string state = "StartScreen";
 
-	GameObject player;
+	Character player;
 	GameObject enemyController;
 	GameObject boss;
+	FadeOverLay fadeOverlay;
 
 	// Use this for initialization
 	void Start () {
-		player = GameObject.FindGameObjectWithTag ("Player");
+		player = GameObject.FindGameObjectWithTag ("Player").GetComponent<Character>();
+		fadeOverlay = GameObject.FindGameObjectWithTag("FadeOverlay").GetComponent<FadeOverLay>();
 	}
 
 	void Update() {
@@ -42,6 +44,17 @@ public class GameController : MonoBehaviour {
 		if (state == "Playing") {
 			if (Input.GetKey(KeyCode.P)) {
 				PauseGame ();
+			}
+			if(player.isDead)
+			{
+				
+			}
+			else
+			{
+				if(player.gotHit())
+				{
+					fadeOverlay.fade();
+				}
 			}
 		}
 		if (state == "Paused") {

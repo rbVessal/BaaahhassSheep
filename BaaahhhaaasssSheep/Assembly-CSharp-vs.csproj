@@ -46,13 +46,14 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\CameraMovement.cs" />
-     <Compile Include="Assets\GameController.cs" />
+     <Compile Include="Assets\Scripts\CameraMovement.cs" />
      <Compile Include="Assets\Scripts\Character.cs" />
      <Compile Include="Assets\Scripts\Environment.cs" />
      <Compile Include="Assets\Scripts\EnvironmentLayer.cs" />
+     <Compile Include="Assets\Scripts\FadeOverLay.cs" />
+     <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\ParallaxScrolling.cs" />
-     <Compile Include="Assets\wolfScript.cs" />
+     <Compile Include="Assets\Scripts\wolfScript.cs" />
      <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />

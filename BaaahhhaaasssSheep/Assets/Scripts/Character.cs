@@ -21,6 +21,10 @@ public class Character : MonoBehaviour
 	public float friction = 0.2f;
 	Vector2 originalPosition;
 	public float gravityStrength = 20.0f;
+	int numberOfHits = 0;
+	public int MAX_NUMBER_OF_HITS = 3;
+	public bool isDead = false;
+	bool isHit = false;
 	
 	private Animator animator;
 	
@@ -169,6 +173,11 @@ public class Character : MonoBehaviour
 			}
 		}
 	}
+
+	public bool gotHit()
+	{
+		return isHit;
+	}
 	
 	void OnCollisionEnter2D(Collision2D other)
 	{
@@ -178,7 +187,20 @@ public class Character : MonoBehaviour
 		}
 		else if(other.gameObject.tag == "Wolf")
 		{
+			numberOfHits++;
+			if(numberOfHits == MAX_NUMBER_OF_HITS)
+			{
+				isDead = true;
+			}
+			isHit = true;
+		}
+	}
 
+	void OnCollisionExit2D(Collision2D other)
+	{
+		if(other.gameObject.tag == "Wolf")
+		{
+			isHit = false;
 		}
 	}
 }
