@@ -40,17 +40,17 @@ public class Character : MonoBehaviour
 		{
 			moveDirection.x -= speed;
 		}
-		else if(Input.GetKey(KeyCode.W))
-		{
-			moveDirection.y += jumpSpeed;
-		}
+//		else if(Input.GetKey(KeyCode.W))
+//		{
+//			moveDirection.y += jumpSpeed;
+//		}
 		//Apply gravity
-		moveDirection.y -= gravity * Time.deltaTime;
+//		moveDirection.y -= gravity * Time.deltaTime;
 
-		if(moveDirection.y < originalPosition.y)
-		{
-			moveDirection.y = originalPosition.y;
-		}
+//		if(moveDirection.y < originalPosition.y)
+//		{
+//			moveDirection.y = originalPosition.y;
+//		}
 
 		// Move the controller
 		controller.Move(moveDirection * Time.deltaTime);
