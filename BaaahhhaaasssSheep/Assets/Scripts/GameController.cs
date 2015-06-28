@@ -19,19 +19,18 @@ using System.Collections;
 public class GameController : MonoBehaviour {
 
 
-	public Canvas startScreen;
 
 	string state = "StartScreen";
 
-	Character player;
+	GameObject player;
 	GameObject enemyController;
 	GameObject boss;
-	FadeOverLay fadeOverlay;
+	GameObject startScreen;
 
 	// Use this for initialization
 	void Start () {
-		player = GameObject.FindGameObjectWithTag ("Player").GetComponent<Character>();
-		fadeOverlay = GameObject.FindGameObjectWithTag("FadeOverlay").GetComponent<FadeOverLay>();
+		player = GameObject.FindGameObjectWithTag ("Player");
+		startScreen = GameObject.FindGameObjectWithTag ("StartScreen");
 	}
 
 	void Update() {
@@ -45,17 +44,6 @@ public class GameController : MonoBehaviour {
 			if (Input.GetKey(KeyCode.P)) {
 				PauseGame ();
 			}
-			if(player.isDead)
-			{
-				
-			}
-			else
-			{
-				if(player.gotHit())
-				{
-					fadeOverlay.fade();
-				}
-			}
 		}
 		if (state == "Paused") {
 			if (Input.GetKey(KeyCode.P)) {
@@ -67,8 +55,13 @@ public class GameController : MonoBehaviour {
 	void StartGame(){
 		state = "Playing";
 		//remove gui and intro screen
-		//spawn sheep and world
-		//start the timer
+		GameObject.Destroy (startScreen);
+
+		//start sheep and world
+		player.SendMessage ("play");
+
+
+		//start the boss chase
 	}
 	
 	void PauseGame(){

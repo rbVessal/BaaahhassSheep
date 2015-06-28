@@ -21,10 +21,8 @@ public class Character : MonoBehaviour
 	public float friction = 0.2f;
 	Vector2 originalPosition;
 	public float gravityStrength = 20.0f;
-	int numberOfHits = 0;
-	public int MAX_NUMBER_OF_HITS = 3;
-	public bool isDead = false;
-	bool isHit = false;
+
+	string state = "nothing";
 	
 	private Animator animator;
 	
@@ -41,14 +39,15 @@ public class Character : MonoBehaviour
 	// Update is called once per frame
 	void FixedUpdate () 
 	{
+		if (state == "playing") {
 		
+			applyFriction ();
 		
-		applyFriction();
+			applyGravity ();
 		
-		applyGravity ();
-		
-		applyInputMovement ();
-		//Debug.Log (moveDirection.x);
+			applyInputMovement ();
+			//Debug.Log (moveDirection.x);
+		}
 	}
 
 	//applies the wasd and space button inputs
@@ -83,7 +82,7 @@ public class Character : MonoBehaviour
 		
 		clampSpeed();
 
-		//dash goes above clamped speed ;)
+		//dash goes above-overrides clamped speed ;)
 		if (Input.GetKey (KeyCode.S)) {
 			dash();
 		}
@@ -91,6 +90,15 @@ public class Character : MonoBehaviour
 		rigidBody.velocity = moveDirection * Time.deltaTime;
 
 
+	}
+
+	public void play(){
+		state = "playing";
+
+	}
+
+	public void pause(){
+		state = "paused";
 	}
 
 	void jump(){
@@ -173,11 +181,6 @@ public class Character : MonoBehaviour
 			}
 		}
 	}
-
-	public bool gotHit()
-	{
-		return isHit;
-	}
 	
 	void OnCollisionEnter2D(Collision2D other)
 	{
@@ -187,20 +190,7 @@ public class Character : MonoBehaviour
 		}
 		else if(other.gameObject.tag == "Wolf")
 		{
-			numberOfHits++;
-			if(numberOfHits == MAX_NUMBER_OF_HITS)
-			{
-				isDead = true;
-			}
-			isHit = true;
-		}
-	}
 
-	void OnCollisionExit2D(Collision2D other)
-	{
-		if(other.gameObject.tag == "Wolf")
-		{
-			isHit = false;
 		}
 	}
 }
