@@ -11,10 +11,10 @@ public class Character : MonoBehaviour
 {
 	float speed = 2.0f;
 	float jumpSpeed = 8.0f;
-	float gravity = 20.0f;
+//	float gravity = 20.0f;
 	float MAX_SPEED = 10.0f;
 	float MAX_JUMP_SPEED = 15.0f;
-	CharacterController controller;
+	public Rigidbody2D rigidBody;
 	float friction = 0.2f;
 	Vector2 originalPosition;
 
@@ -23,7 +23,7 @@ public class Character : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		controller = GetComponent<CharacterController>();
+		rigidBody = GetComponent<Rigidbody2D>();
 		originalPosition = this.transform.localPosition;
 	}
 	
@@ -40,20 +40,18 @@ public class Character : MonoBehaviour
 		{
 			moveDirection.x -= speed;
 		}
-//		else if(Input.GetKey(KeyCode.W))
-//		{
-//			moveDirection.y += jumpSpeed;
-//		}
+		else if(Input.GetKey(KeyCode.W))
+		{
+			moveDirection.y = jumpSpeed;
+		}
 		//Apply gravity
 //		moveDirection.y -= gravity * Time.deltaTime;
+//
+//		Debug.Log("moveDirection.y : " + moveDirection.y);
+//		Debug.Log ("originalpostion.y : " + originalPosition.y);
 
-//		if(moveDirection.y < originalPosition.y)
-//		{
-//			moveDirection.y = originalPosition.y;
-//		}
-
-		// Move the controller
-		controller.Move(moveDirection * Time.deltaTime);
+		// Move the rigid body
+		rigidBody.velocity = moveDirection * Time.deltaTime;
 	}
 	void clampSpeed()
 	{
