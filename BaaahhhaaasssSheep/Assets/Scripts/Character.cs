@@ -47,6 +47,11 @@ public class Character : MonoBehaviour
 		//Apply gravity
 		moveDirection.y -= gravity * Time.deltaTime;
 
+		if(moveDirection.y < originalPosition.y)
+		{
+			moveDirection.y = originalPosition.y;
+		}
+
 		// Move the controller
 		controller.Move(moveDirection * Time.deltaTime);
 	}
@@ -88,11 +93,6 @@ public class Character : MonoBehaviour
 			{
 				moveDirection.x = 0;
 			}
-		}
-
-		if(moveDirection.y < originalPosition.y)
-		{
-			moveDirection.y = originalPosition.y;
 		}
 	}
 }
