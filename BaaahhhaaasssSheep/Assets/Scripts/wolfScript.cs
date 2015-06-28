@@ -13,6 +13,9 @@ public class wolfScript : MonoBehaviour
 	bool collisionOccurred = false;
 	bool firstCollisionDidOccur = false;
 	Camera camera;
+	public GameObject deathEffect;
+
+	int lifePoints = 2;
 
 	// Use this for initialization
 	void Start () 
@@ -65,8 +68,8 @@ public class wolfScript : MonoBehaviour
 //			float runAwayVelocityX = ((rigidbody.velocity.x + runningVelocity.x + 
 //			                           rigidbody.position.x + (collider.size.x/2)));
 		float rightSidePositionX = (collider.size.x/2) + rigidbody.position.x;
-		Debug.Log ("right: " + rigidbody.position.x);
-		Debug.Log ("right side: " + rightSidePositionX);
+		//Debug.Log ("right: " + rigidbody.position.x);
+		//Debug.Log ("right side: " + rightSidePositionX);
 		//			Debug.Log ("runaway velocity x: " + runAwayVelocityX);
 		if(rightSidePositionX > 50)
 		{
@@ -74,7 +77,7 @@ public class wolfScript : MonoBehaviour
 			                                          this.transform.localScale.y, 
 			                                          this.transform.localScale.z);				
 			collisionOccurred = false;
-			Debug.Log("reset");
+			//Debug.Log("reset");
 		}
 		else
 		{
@@ -98,6 +101,14 @@ public class wolfScript : MonoBehaviour
 			this.transform.localScale = new Vector3(this.transform.localScale.x * -1, 
 			                                          this.transform.localScale.y, 
 			                                          this.transform.localScale.z);
+		}
+	}
+	public void Hit(){
+		lifePoints--;
+		if (lifePoints == 0){
+			GameObject go = (GameObject) Instantiate(deathEffect, this.transform.position, Quaternion.identity);
+			go.transform.Rotate(0, 180, 0);
+			GameObject.Destroy(this.gameObject);
 		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 //game controller class for NightmareWarrior
 //contact: jordanjalles at gmail dot com
@@ -22,15 +23,21 @@ public class GameController : MonoBehaviour {
 
 	string state = "StartScreen";
 
-	GameObject player;
+	Character player;
+	FadeOverLay fadeOverlay;
 	GameObject enemyController;
 	GameObject boss;
 	GameObject startScreen;
 
+	public Text gameOverText;
 	// Use this for initialization
 	void Start () {
-		player = GameObject.FindGameObjectWithTag ("Player");
+		player = GameObject.FindGameObjectWithTag ("Player").GetComponent<Character>();
+		fadeOverlay = GameObject.FindGameObjectWithTag ("FadeOverlay").GetComponent<FadeOverLay>();
 		startScreen = GameObject.FindGameObjectWithTag ("StartScreen");
+		gameOverText = GameObject.FindGameObjectWithTag("GameOverText").GetComponent<Text>();
+		StartScreen();
+		Debug.Log(gameOverText.text);
 	}
 
 	void Update() {
@@ -44,6 +51,19 @@ public class GameController : MonoBehaviour {
 			if (Input.GetKey(KeyCode.P)) {
 				PauseGame ();
 			}
+
+			if(player.isDead())
+			{
+				fadeOverlay.fade();
+				GameOver();
+			}
+			else if(player.gotHit())
+			{
+				fadeOverlay.fade();
+				player.isHit = false;
+			}
+//			Debug.Log ("got hit: " + player.gotHit());
+
 		}
 		if (state == "Paused") {
 			if (Input.GetKey(KeyCode.P)) {
@@ -75,15 +95,22 @@ public class GameController : MonoBehaviour {
 		StartAll();
 	}
 
+
+
+
+
+
 	void GameOver(){
 		state = "GameOver";
+		gameOverText.text = "GAME OVER";
+//		gameOverText.SetActive(true);
 		StopAll ();
-
 	}
 
 	void StartScreen(){
 		//display gui
 		state = "StartScreen";
+//		gameOverText.text = "Press [SPACE] to play!";
 	}
 
 	void StopAll(){

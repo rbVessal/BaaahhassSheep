@@ -53,6 +53,7 @@
      <Compile Include="Assets\Scripts\FadeOverLay.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\ParallaxScrolling.cs" />
+     <Compile Include="Assets\Scripts\ParticleScript.cs" />
      <Compile Include="Assets\Scripts\wolfScript.cs" />
      <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />

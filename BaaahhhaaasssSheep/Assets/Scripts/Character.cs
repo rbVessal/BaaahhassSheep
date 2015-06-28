@@ -9,7 +9,9 @@ using System.Collections;
 
 public class Character : MonoBehaviour 
 {
+	public GameObject fireBall;
 	bool isAccelerating = false;
+	bool isDashing = false;
 	bool isJumping = false;
 	public float speedEasing = 0.3f;
 	//float jumpSpeed = 8.0f;
@@ -21,6 +23,9 @@ public class Character : MonoBehaviour
 	public float friction = 0.2f;
 	Vector2 originalPosition;
 	public float gravityStrength = 20.0f;
+	public bool isHit = false;
+	int numberOfHits = 0;
+	public int MAX_NUMBER_OF_HITS = 3;
 
 	string state = "nothing";
 	
@@ -34,6 +39,9 @@ public class Character : MonoBehaviour
 		this.animator = this.GetComponent<Animator>();
 		rigidBody = GetComponent<Rigidbody2D>();
 		originalPosition = this.transform.localPosition;
+		fireBall.transform.position = this.transform.position;
+		fireBall.transform.position = new Vector2(fireBall.transform.position.x -2, fireBall.transform.position.y);
+		fireBall.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -107,6 +115,9 @@ public class Character : MonoBehaviour
 
 	void dash(){
 		moveDirection.x = DASH_SPEED;
+		fireBall.SetActive(true);
+		isDashing = true;
+
 	}
 
 	bool checkGrounded(){
@@ -181,8 +192,22 @@ public class Character : MonoBehaviour
 			}
 		}
 	}
+
+	public bool gotHit()
+	{
+		return isHit;
+	}
+
+	public bool isDead()
+	{
+		if(numberOfHits == MAX_NUMBER_OF_HITS)
+		{
+			return true;
+		}
+		return false;
+	}
 	
-	void OnCollisionEnter2D(Collision2D other)
+	void OnTriggerEnter2D(Collider2D other)
 	{
 		if(other.gameObject.tag == "Log")
 		{
@@ -190,7 +215,20 @@ public class Character : MonoBehaviour
 		}
 		else if(other.gameObject.tag == "Wolf")
 		{
+			if (isDashing){
+				other.GetComponent<wolfScript>().Hit();
+			}else{
+				isHit = true;
+				numberOfHits++;
+			}
+		}
+	}
 
+	void OnTriggerExit2D(Collider2D other)
+	{
+		if(other.gameObject.tag == "Wolf")
+		{
+			isHit = false;
 		}
 	}
 }

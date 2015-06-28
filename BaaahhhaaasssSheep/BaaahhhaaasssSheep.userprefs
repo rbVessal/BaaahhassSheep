@@ -1,19 +1,16 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Character.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/wolfScript.cs">
     <Files>
       <File FileName="Assets/Scripts/CameraMovement.cs" Line="4" Column="1" />
-      <File FileName="Assets/Scripts/Character.cs" Line="177" Column="17" />
-      <File FileName="Assets/GameController.cs" Line="55" Column="23" />
-      <File FileName="Assets/Scripts/FadeOverLay.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Character.cs" Line="219" Column="43" />
+      <File FileName="Assets/Scripts/FadeOverLay.cs" Line="25" Column="39" />
+      <File FileName="Assets/Scripts/GameController.cs" Line="113" Column="40" />
+      <File FileName="Assets/Scripts/wolfScript.cs" Line="16" Column="19" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/Rebecca/Desktop/BaaahhassSheep/BaaahhhaaasssSheep/Assets/Scripts/FadeOverLay.cs" line="24" />
-      <Breakpoint file="/Users/Rebecca/Desktop/BaaahhassSheep/BaaahhhaaasssSheep/Assets/Scripts/FadeOverLay.cs" line="12" />
-      <Breakpoint file="/Users/Rebecca/Desktop/BaaahhassSheep/BaaahhhaaasssSheep/Assets/Scripts/Character.cs" line="179" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
