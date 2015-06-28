@@ -9,11 +9,14 @@ using System.Collections;
 
 public class Character : MonoBehaviour 
 {
-	public float speed = 10.0f;
-	float jumpSpeed = 8.0f;
+	bool isAccelerating = false;
+	bool isJumping = false;
+	public float speedEasing = 0.3f;
+	//float jumpSpeed = 8.0f;
 	//	float gravity = 20.0f;
 	public float MAX_SPEED = 20.0f;
 	float MAX_JUMP_SPEED = 1200.0f;
+	public float DASH_SPEED;
 	public Rigidbody2D rigidBody;
 	public float friction = 0.2f;
 	Vector2 originalPosition;
@@ -32,7 +35,7 @@ public class Character : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update () 
+	void FixedUpdate () 
 	{
 		
 		
@@ -40,29 +43,33 @@ public class Character : MonoBehaviour
 		
 		applyGravity ();
 		
-		if (Input.GetKey (KeyCode.Space) && checkGrounded()) {
-			moveDirection.y = MAX_JUMP_SPEED;
-			//Debug.Log (checkGrounded ());
-		}
+		applyInputMovement ();
+		//Debug.Log (moveDirection.x);
+	}
+
+	//applies the wasd and space button inputs
+	void applyInputMovement(){
+
+		isAccelerating = false; //false by default. change to true below if we have 'A' or 'D' input
+		isJumping = false; //same for jumping
 		
-		
-		
-		if(Input.GetKey(KeyCode.D))
-		{
-			animator.SetInteger("state", 1);
-			moveDirection.x += speed;
-		}
-		else if(Input.GetKey(KeyCode.A))
-		{
-			animator.SetInteger("state", 1);
-			moveDirection.x -= speed;
-		}
-		else if(Input.GetKey(KeyCode.W))
-		{
-			animator.SetInteger("state", 1);
-			moveDirection.y = jumpSpeed;
-		}else{
+		if (Input.GetKey (KeyCode.D)) {
+			animator.SetInteger ("state", 1);
+			isAccelerating = true;
+			moveDirection.x += (MAX_SPEED-moveDirection.x)*speedEasing*Time.deltaTime;
+		} else if (Input.GetKey (KeyCode.A)) {
+			animator.SetInteger ("state", 1);
+			isAccelerating = true;
+			moveDirection.x += (-MAX_SPEED + moveDirection.x)*speedEasing*Time.deltaTime;
+
+		} else{
 			animator.SetInteger("state", 0);
+		}
+
+		if ((Input.GetKey (KeyCode.W) || Input.GetKey(KeyCode.Space)) && checkGrounded ()) {
+			jump ();
+			isJumping = true;
+
 		}
 		//Apply gravity
 		//		moveDirection.y -= gravity * Time.deltaTime;
@@ -70,19 +77,33 @@ public class Character : MonoBehaviour
 		//		Debug.Log("moveDirection.y : " + moveDirection.y);
 		//		Debug.Log ("originalpostion.y : " + originalPosition.y);
 		
-		//clampSpeed();
+		clampSpeed();
+
+		//dash goes above clamped speed ;)
+		if (Input.GetKey (KeyCode.S)) {
+			dash();
+		}
 		// Move the rigid body
 		rigidBody.velocity = moveDirection * Time.deltaTime;
+
+
 	}
-	
+
+	void jump(){
+			moveDirection.y = MAX_JUMP_SPEED;
+	}
+
+	void dash(){
+		moveDirection.x = DASH_SPEED;
+	}
+
 	bool checkGrounded(){
 		
 		float radius = GetComponent<CircleCollider2D> ().radius;
 		
-		
 		RaycastHit2D hit = Physics2D.Raycast (new Vector2(transform.position.x,
 		                                                  transform.position.y - radius*2.001f)
-		                                      , -Vector2.up, 0.01f);
+		                                      			, -Vector2.up, 0.01f);
 		
 		
 		//Debug.Log (hit.collider.name);//hit.collider
@@ -128,6 +149,9 @@ public class Character : MonoBehaviour
 	
 	void applyFriction()
 	{
+		if (isAccelerating) {
+			return; //if we are accelerating, don't apply the friction
+		}
 		if(moveDirection.x > 0)
 		{
 			moveDirection.x -= friction;
