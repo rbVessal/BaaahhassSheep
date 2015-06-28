@@ -4,9 +4,9 @@
 -out:'Temp/Assembly-CSharp.dll'
 -r:'/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEngine.dll'
 -r:'Library/ScriptAssemblies/Assembly-CSharp-firstpass.dll'
--r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll'
--r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll'
 -r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll'
+-r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll'
+-r:'/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll'
 -r:'/Applications/Unity/Unity.app/Contents/Frameworks/Managed/UnityEditor.dll'
 -r:'/Applications/Unity/Unity.app/Contents/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll'
 -define:UNITY_5_1_1
@@ -68,6 +68,7 @@
 -define:UNITY_EDITOR_OSX
 -define:CROSS_PLATFORM_INPUT
 'Assets/CameraMovement.cs'
+'Assets/GameController.cs'
 'Assets/Scripts/Character.cs'
 'Assets/Scripts/Environment.cs'
 'Assets/Scripts/EnvironmentLayer.cs'

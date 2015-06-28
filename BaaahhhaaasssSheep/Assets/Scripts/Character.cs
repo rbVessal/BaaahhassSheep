@@ -176,5 +176,9 @@ public class Character : MonoBehaviour
 		{
 			rigidBody.velocity = Vector2.zero;
 		}
+		else if(other.gameObject.tag == "Wolf")
+		{
+
+		}
 	}
 }

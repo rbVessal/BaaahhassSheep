@@ -9,14 +9,18 @@ public class wolfScript : MonoBehaviour
 	Vector2 runningVelocity = new Vector2(-20, 0);
 	string state = "idle";
 	Rigidbody2D rigidbody;
-	bool collisionOccurred;
+	BoxCollider2D collider;
+	bool collisionOccurred = false;
+	bool firstCollisionDidOccur = false;
+	Camera camera;
 
 	// Use this for initialization
 	void Start () 
 	{
 		player = GameObject.FindGameObjectWithTag("Player");
 		rigidbody = GetComponent<Rigidbody2D>();
-		collisionOccurred = false;
+		collider = GetComponent<BoxCollider2D>();
+		camera = Camera.main;
 	}
 	
 	// Update is called once per frame
@@ -26,14 +30,55 @@ public class wolfScript : MonoBehaviour
 		{
 			if(!collisionOccurred)
 			{
-				rigidbody.velocity = runningVelocity;
+				run();
 			}
 			else
 			{
-				rigidbody.velocity = new Vector2(-runningVelocity.x, -runningVelocity.y);
+				runAway();
 			}
-
 			GetComponent<Animator>().SetInteger("state", 1);
+		}
+		else
+		{
+			if(!collisionOccurred)
+			{
+				if(firstCollisionDidOccur)
+				{
+					run ();
+				}
+			}
+			else
+			{
+				runAway();
+			}
+		}
+	}
+
+	void run()
+	{
+		rigidbody.velocity = runningVelocity;
+	}
+
+	void runAway()
+	{
+//			float rightSidePositionX = (camera.pixelWidth + (collider.size.x/2));
+//			float runAwayVelocityX = ((rigidbody.velocity.x + runningVelocity.x + 
+//			                           rigidbody.position.x + (collider.size.x/2)));
+		float rightSidePositionX = (collider.size.x/2) + rigidbody.position.x;
+		Debug.Log ("right: " + rigidbody.position.x);
+		Debug.Log ("right side: " + rightSidePositionX);
+		//			Debug.Log ("runaway velocity x: " + runAwayVelocityX);
+		if(rightSidePositionX > 50)
+		{
+			this.transform.localScale = new Vector3(this.transform.localScale.x * -1, 
+			                                          this.transform.localScale.y, 
+			                                          this.transform.localScale.z);				
+			collisionOccurred = false;
+			Debug.Log("reset");
+		}
+		else
+		{
+			rigidbody.velocity = new Vector2(-runningVelocity.x, 0);
 		}
 	}
 
@@ -42,14 +87,17 @@ public class wolfScript : MonoBehaviour
 		return this.transform.position.x - player.transform.position.x ;
 	}
 
-	void OnCollisionEnter2D(Collision2D collision)
+	void OnTriggerEnter2D(Collider2D collider)
 	{
-		if(collision.gameObject.tag == "Player")
+		if(collider.gameObject.tag == "Player")
 		{
-			Debug.Log(collision.relativeVelocity);
-			rigidbody.velocity = new Vector2(-collision.relativeVelocity.x, 
-			                                 -collision.relativeVelocity.y);
+//			rigidbody.velocity = new Vector2(-collision.relativeVelocity.x, 
+//			                                 0);
 			collisionOccurred = true;
+			firstCollisionDidOccur = true;
+			this.transform.localScale = new Vector3(this.transform.localScale.x * -1, 
+			                                          this.transform.localScale.y, 
+			                                          this.transform.localScale.z);
 		}
 	}
 }
