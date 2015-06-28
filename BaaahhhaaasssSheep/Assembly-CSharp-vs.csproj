@@ -50,6 +50,7 @@
      <Compile Include="Assets\Scripts\Environment.cs" />
      <Compile Include="Assets\Scripts\EnvironmentLayer.cs" />
      <Compile Include="Assets\Scripts\ParallaxScrolling.cs" />
+     <Compile Include="Assets\wolfScript.cs" />
      <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Standard Assets\Effects\ImageEffects\Shaders\NoiseEffectShaderRGB.shader" />

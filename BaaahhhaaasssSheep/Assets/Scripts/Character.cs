@@ -9,20 +9,23 @@ using System.Collections;
 
 public class Character : MonoBehaviour 
 {
-	float speed = 2.0f;
+	public float speed = 10.0f;
 	float jumpSpeed = 8.0f;
 //	float gravity = 20.0f;
-	float MAX_SPEED = 10.0f;
+	public float MAX_SPEED = 40.0f;
 	float MAX_JUMP_SPEED = 15.0f;
 	public Rigidbody2D rigidBody;
-	float friction = 0.2f;
+	public float friction = 0.2f;
 	Vector2 originalPosition;
+
+	private Animator animator;
 
 	private Vector2 moveDirection = Vector2.zero;
 
 	// Use this for initialization
 	void Start () 
 	{
+		this.animator = this.GetComponent<Animator>();
 		rigidBody = GetComponent<Rigidbody2D>();
 		originalPosition = this.transform.localPosition;
 	}
@@ -34,15 +37,20 @@ public class Character : MonoBehaviour
 
 		if(Input.GetKey(KeyCode.D))
 		{
+			animator.SetInteger("state", 1);
 			moveDirection.x += speed;
 		}
 		else if(Input.GetKey(KeyCode.A))
 		{
+			animator.SetInteger("state", 1);
 			moveDirection.x -= speed;
 		}
 		else if(Input.GetKey(KeyCode.W))
 		{
+			animator.SetInteger("state", 1);
 			moveDirection.y = jumpSpeed;
+		}else{
+			animator.SetInteger("state", 0);
 		}
 		//Apply gravity
 //		moveDirection.y -= gravity * Time.deltaTime;
@@ -50,6 +58,7 @@ public class Character : MonoBehaviour
 //		Debug.Log("moveDirection.y : " + moveDirection.y);
 //		Debug.Log ("originalpostion.y : " + originalPosition.y);
 
+		clampSpeed();
 		// Move the rigid body
 		rigidBody.velocity = moveDirection * Time.deltaTime;
 	}
@@ -91,6 +100,14 @@ public class Character : MonoBehaviour
 			{
 				moveDirection.x = 0;
 			}
+		}
+	}
+
+	void onColliderEnter(Collider other)
+	{
+		if(other.tag == "Log")
+		{
+			rigidBody.velocity = Vector2.zero;
 		}
 	}
 }

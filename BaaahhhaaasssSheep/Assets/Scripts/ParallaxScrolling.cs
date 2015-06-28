@@ -15,7 +15,7 @@ public class ParallaxScrolling : MonoBehaviour {
 	void Start () 
 	{
 		grasses = new List<Environment>();
-		character = GameObject.Find("Baahdass").GetComponent<Character>();
+		//character = GameObject.FindGameObjectsWithTag("Player").GetComponent<Character>();
 		grass = GameObject.Find("Grass").GetComponent<Environment>();
 		grass2 = GameObject.Find("Grass2").GetComponent<Environment>();
 

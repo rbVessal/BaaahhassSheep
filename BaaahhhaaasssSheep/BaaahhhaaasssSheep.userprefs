@@ -1,11 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Standard Assets/2D/Scripts/PlatformerCharacter2D.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/wolfScript.cs">
     <Files>
-      <File FileName="Assets/Scripts/Character.cs" Line="99" Column="30" />
-      <File FileName="Assets/Scripts/ParallaxScrolling.cs" Line="47" Column="6" />
-      <File FileName="Assets/Scripts/Environment.cs" Line="1" Column="1" />
-      <File FileName="Assets/Standard Assets/2D/Scripts/PlatformerCharacter2D.cs" Line="39" Column="1" />
+      <File FileName="Assets/Standard Assets/2D/Scripts/PlatformerCharacter2D.cs" Line="54" Column="14" />
+      <File FileName="Assets/wolfScript.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
